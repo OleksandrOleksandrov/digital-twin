@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="lambda-deployment">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/backend/lambda-deployment.zip!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
