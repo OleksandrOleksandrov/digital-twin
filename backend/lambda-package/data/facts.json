@@ -1,0 +1,21 @@
+{
+  "full_name": "Oleksandrov Oleksandr",
+  "name": "Oleksandr",
+  "current_role": "Sr. Android Engineer",
+  "location": "Kyiv, Ukraine",
+  "email": "aleksandraleksandrovua@gmail.com",
+  "linkedin": "https://www.linkedin.com/in/oleksandr-oleksandrov-b68838131/",
+  "specialties": [
+    "Sr. Android Engineer",
+    "AI Engineer",
+    "Python Developer"
+  ],
+  "years_experience": 9,
+  "education": [
+    {
+      "degree": "System software",
+      "institution": "Classic Private University",
+      "year": "2015"
+    }
+  ]
+}
