@@ -130,7 +130,7 @@ resource "aws_lambda_function" "api" {
   architectures    = ["arm64"]
   timeout          = var.lambda_timeout
   tags             = local.common_tags
-  publish   = true
+  publish          = true
   snap_start {
     apply_on = "PublishedVersions"
   }
@@ -141,11 +141,18 @@ resource "aws_lambda_function" "api" {
       S3_BUCKET        = aws_s3_bucket.memory.id
       USE_S3           = "true"
       BEDROCK_MODEL_ID = var.bedrock_model_id
+      OPENAI_API_KEY   = var.openai_api_key
     }
   }
 
   # Ensure Lambda waits for the distribution to exist
   depends_on = [aws_cloudfront_distribution.main]
+
+  # SnapStart asynchronously initializes and snapshots published versions.
+  timeouts {
+    create = "20m"
+    update = "20m"
+  }
 }
 
 # Lambda alias for the published version
@@ -231,7 +238,7 @@ resource "aws_lambda_permission" "api_gw" {
 # CloudFront distribution
 resource "aws_cloudfront_distribution" "main" {
   aliases = local.aliases
-  
+
   viewer_certificate {
     acm_certificate_arn            = var.use_custom_domain ? aws_acm_certificate.site[0].arn : null
     cloudfront_default_certificate = var.use_custom_domain ? false : true

@@ -22,6 +22,13 @@ variable "bedrock_model_id" {
   default     = "amazon.amazon.nova-2-lite-v1:0"
 }
 
+variable "openai_api_key" {
+  description = "OpenAI API key used by the Lambda function"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
 variable "lambda_timeout" {
   description = "Lambda function timeout in seconds"
   type        = number
