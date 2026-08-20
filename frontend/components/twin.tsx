@@ -96,8 +96,8 @@ export default function Twin() {
     // Check if avatar exists
     const [hasAvatar, setHasAvatar] = useState(false);
     useEffect(() => {
-        // Check if avatar.png exists
-        fetch('/avatar.png', { method: 'HEAD' })
+        // Check if avatar_light.png exists
+        fetch('/avatar_light.png', { method: 'HEAD' })
             .then(res => setHasAvatar(res.ok))
             .catch(() => setHasAvatar(false));
     }, []);
@@ -110,7 +110,7 @@ export default function Twin() {
                     <Bot className="w-6 h-6" />
                     AI Digital Twin
                 </h2>
-                <p className="text-sm text-slate-300 mt-1">Your AI course companion</p>
+                <p className="text-sm text-slate-300 mt-1">Oleksandr</p>
             </div>
 
             {/* Messages */}
@@ -119,15 +119,15 @@ export default function Twin() {
                     <div className="text-center text-gray-500 mt-8">
                         {hasAvatar ? (
                             <img 
-                                src="/avatar.png" 
+                                src="/avatar_light.png" 
                                 alt="Digital Twin Avatar" 
                                 className="w-20 h-20 rounded-full mx-auto mb-3 border-2 border-gray-300"
                             />
                         ) : (
                             <Bot className="w-12 h-12 mx-auto mb-3 text-gray-400" />
                         )}
-                        <p>Hello! I&apos;m your Digital Twin.</p>
-                        <p className="text-sm mt-2">Ask me anything about AI deployment!</p>
+                        <p>Hi! My name&apos;s Oleksandr</p>
+                        <p className="text-sm mt-2">Ask me anything you want and I&apos;ll answer</p>
                     </div>
                 )}
 
@@ -142,7 +142,7 @@ export default function Twin() {
                             <div className="flex-shrink-0">
                                 {hasAvatar ? (
                                     <img 
-                                        src="/avatar.png" 
+                                        src="/avatar_light.png" 
                                         alt="Digital Twin Avatar" 
                                         className="w-8 h-8 rounded-full border border-slate-300"
                                     />
@@ -186,7 +186,7 @@ export default function Twin() {
                         <div className="flex-shrink-0">
                             {hasAvatar ? (
                                 <img 
-                                    src="/avatar.png" 
+                                    src="/avatar_light.png" 
                                     alt="Digital Twin Avatar" 
                                     className="w-8 h-8 rounded-full border border-slate-300"
                                 />
