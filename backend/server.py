@@ -30,9 +30,6 @@ app.add_middleware(
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# OpenAI model selection
-OPENAI_MODEL_ID = os.getenv("OPENAI_MODEL_ID", "gpt-5.4-nano-2026-03-17")
-
 # Memory storage configuration
 USE_S3 = os.getenv("USE_S3", "false").lower() == "true"
 S3_BUCKET = os.getenv("S3_BUCKET", "")
@@ -119,12 +116,7 @@ def call_openai(conversation: List[Dict], user_message: str) -> str:
     messages.append({"role": "user", "content": user_message})
 
     try:
-        response = client.chat.completions.create(
-            model=OPENAI_MODEL_ID,
-            messages=messages,
-            temperature=0.7,
-            max_tokens=2000,
-        )
+        response = client.chat.completions.create(model="gpt-5-nano", messages=messages)
 
         return response.choices[0].message.content
 
@@ -139,13 +131,13 @@ async def root():
         "message": "AI Digital Twin API (Powered by OpenAI)",
         "memory_enabled": True,
         "storage": "S3" if USE_S3 else "local",
-        "ai_model": OPENAI_MODEL_ID,
+        "ai_model": "gpt-5-nano",
     }
 
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "use_s3": USE_S3, "openai_model": OPENAI_MODEL_ID}
+    return {"status": "healthy", "use_s3": USE_S3, "openai_model": "gpt-5-nano"}
 
 
 @app.post("/chat", response_model=ChatResponse)
