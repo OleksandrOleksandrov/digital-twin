@@ -130,6 +130,10 @@ resource "aws_lambda_function" "api" {
   architectures    = ["arm64"]
   timeout          = var.lambda_timeout
   tags             = local.common_tags
+  publish   = true
+  snap_start {
+    apply_on = "PublishedVersions"
+  }
 
   environment {
     variables = {
@@ -142,6 +146,16 @@ resource "aws_lambda_function" "api" {
 
   # Ensure Lambda waits for the distribution to exist
   depends_on = [aws_cloudfront_distribution.main]
+}
+
+# Lambda alias for the published version
+resource "aws_lambda_alias" "snapstart" {
+  name             = "${local.name_prefix}-snapstart"
+  function_name    = aws_lambda_function.api.function_name
+  function_version = aws_lambda_function.api.version
+  description      = "Alias for SnapStart PublishedVersion"
+
+  depends_on = [aws_lambda_function.api]
 }
 
 # API Gateway HTTP API
@@ -174,7 +188,7 @@ resource "aws_apigatewayv2_stage" "default" {
 resource "aws_apigatewayv2_integration" "lambda" {
   api_id           = aws_apigatewayv2_api.main.id
   integration_type = "AWS_PROXY"
-  integration_uri  = aws_lambda_function.api.invoke_arn
+  integration_uri  = aws_lambda_alias.snapstart.arn
 }
 
 # API Gateway Routes
@@ -200,7 +214,8 @@ resource "aws_apigatewayv2_route" "get_health" {
 resource "aws_lambda_permission" "api_gw" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.api.function_name
+  function_name = aws_lambda_alias.snapstart.function_name
+  qualifier     = aws_lambda_alias.snapstart.name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.main.execution_arn}/*/*"
 }
