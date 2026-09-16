@@ -3,6 +3,11 @@ output "api_gateway_url" {
   value       = aws_apigatewayv2_api.main.api_endpoint
 }
 
+output "api_gateway_id" {
+  description = "API Gateway API identifier"
+  value       = aws_apigatewayv2_api.main.id
+}
+
 output "cloudfront_url" {
   description = "URL of the CloudFront distribution"
   value       = "https://${aws_cloudfront_distribution.main.domain_name}"

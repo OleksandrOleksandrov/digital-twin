@@ -179,6 +179,14 @@ resource "aws_apigatewayv2_stage" "default" {
   auto_deploy = true
   tags        = local.common_tags
 
+  # An HTTP API cannot deploy a stage until at least one valid route exists.
+  # Creating the stage first can leave it permanently stuck with no deployment.
+  depends_on = [
+    aws_apigatewayv2_route.get_root,
+    aws_apigatewayv2_route.post_chat,
+    aws_apigatewayv2_route.get_health,
+  ]
+
   default_route_settings {
     throttling_burst_limit = var.api_throttle_burst_limit
     throttling_rate_limit  = var.api_throttle_rate_limit

@@ -39,8 +39,28 @@ echo "🎯 Applying Terraform..."
 "${TF_APPLY_CMD[@]}"
 
 API_URL=$(terraform output -raw api_gateway_url)
+API_ID=$(terraform output -raw api_gateway_id)
 FRONTEND_BUCKET=$(terraform output -raw s3_frontend_bucket)
 CUSTOM_URL=$(terraform output -raw custom_domain_url 2>/dev/null || true)
+
+# Do not publish a frontend pointing at an API with no deployed routes.
+echo "🔎 Verifying API Gateway routes..."
+ROUTE_COUNT=$(aws apigatewayv2 get-routes \
+  --api-id "$API_ID" \
+  --region "$AWS_REGION" \
+  --query 'length(Items)')
+if [ "$ROUTE_COUNT" -lt 3 ]; then
+  echo "❌ API Gateway deployment has $ROUTE_COUNT routes; expected at least 3."
+  exit 1
+fi
+
+echo "🔎 Verifying API health endpoint..."
+HEALTH_STATUS=$(curl --silent --show-error --output /dev/null --write-out "%{http_code}" \
+  --max-time 30 "$API_URL/health")
+if [ "$HEALTH_STATUS" != "200" ]; then
+  echo "❌ API health check returned HTTP $HEALTH_STATUS."
+  exit 1
+fi
 
 # 3. Build + deploy frontend
 cd ../frontend
