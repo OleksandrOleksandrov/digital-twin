@@ -21,6 +21,7 @@ def main():
 
     # Use the official AWS Lambda Python 3.12 image
     # This ensures compatibility with Lambda's runtime environment
+    # Use requirements-lambda.txt which excludes uvicorn (only needed for local dev)
     subprocess.run(
         [
             "docker",
@@ -35,7 +36,7 @@ def main():
             "public.ecr.aws/lambda/python:3.12",
             "/bin/sh",
             "-c",
-            "pip install --target /var/task/lambda-package -r /var/task/requirements.txt --platform manylinux2014_aarch64 --only-binary=:all: --upgrade",
+            "pip install --target /var/task/lambda-package -r /var/task/requirements-lambda.txt --platform manylinux2014_aarch64 --only-binary=:all: --upgrade",
         ],
         check=True,
     )
