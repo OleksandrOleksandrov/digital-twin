@@ -23,6 +23,16 @@ output "lambda_function_name" {
   value       = aws_lambda_function.api.function_name
 }
 
+output "lambda_snapstart_alias" {
+  description = "SnapStart alias name"
+  value       = aws_lambda_alias.snapstart.name
+}
+
+output "lambda_published_version" {
+  description = "Published Lambda version used by the SnapStart alias"
+  value       = aws_lambda_function.api.version
+}
+
 output "custom_domain_url" {
   description = "Root URL of the production site"
   value       = var.use_custom_domain ? "https://${var.root_domain}" : ""
