@@ -8,9 +8,6 @@ export default function Home() {
           <h1 className="text-4xl font-bold text-center text-gray-800 mb-2">
             Oleksandr&apos;s digital twin
           </h1>
-          <p className="text-center text-gray-600 mb-8">
-            I&apos;m first version based on GPT 5.4 nano model
-          </p>
 
           <div className="h-[600px]">
             <Twin />
