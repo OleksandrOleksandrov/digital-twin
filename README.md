@@ -110,6 +110,7 @@ The script will:
 | `AWS_ACCOUNT_ID` | AWS account ID for deployment |
 | `DEFAULT_AWS_REGION` | AWS region (default: `us-east-1`) |
 | `AWS_ROLE_ARN` | IAM role ARN for GitHub Actions |
+| `OPENAI_API_KEY` | OpenAI API key stored as a GitHub Actions secret |
 | `NEXT_PUBLIC_API_URL` | API Gateway URL for frontend |
 
 ## Terraform
