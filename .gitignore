@@ -131,9 +131,11 @@ frontend/.next/
 frontend/out/
 frontend/.env.local
 frontend/.env.*.local
+*.tsbuildinfo
 
 # Terraform
 *.tfstate
+*.tfstate.*
 .tfstate.
 .terraform/
 .terraform.lock.hcl
@@ -143,8 +145,8 @@ terraform.tfstate.d/
 !prod.tfvars
 
 # IDE & OS
-.vscode/
 .idea/
+.vscode/
 *.swp
 .DS_Store
 .spyderproject
