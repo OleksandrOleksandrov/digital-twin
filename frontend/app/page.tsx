@@ -5,14 +5,9 @@ export default function Home() {
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-center text-gray-800 mb-2">
-            Oleksandr&apos;s digital twin
-          </h1>
-
           <div className="h-[600px]">
             <Twin />
           </div>
-
           <footer className="mt-8 text-center text-sm text-gray-500">
             <p>Build on AWS infrastructure</p>
           </footer>
