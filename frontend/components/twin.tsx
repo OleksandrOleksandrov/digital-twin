@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User } from 'lucide-react';
+import GithubIcon from '@/components/icons/github-icon';
+import LinkedinIcon from '@/components/icons/linkedin-icon';
 
 interface Message {
     id: string;
@@ -106,11 +108,34 @@ export default function Twin() {
         <div className="flex flex-col h-full bg-gray-50 rounded-lg shadow-lg">
             {/* Header */}
             <div className="bg-gradient-to-r from-slate-700 to-slate-800 text-white p-4 rounded-t-lg">
-                <h2 className="text-xl font-semibold flex items-center gap-2">
-                    <Bot className="w-6 h-6" />
-                    AI Digital Twin
-                </h2>
-                <p className="text-sm text-slate-300 mt-1">Oleksandr</p>
+                <div className="flex items-center justify-between gap-2">
+                    <h2 className="text-xl font-semibold flex items-center gap-2">
+                        <Bot className="w-6 h-6" />
+                        Oleksandr AI Digital Twin
+                    </h2>
+                    <div className="flex items-center gap-3">
+                        <a
+                            href="https://github.com/OleksandrOleksandrov"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="GitHub"
+                            title="GitHub"
+                            className="text-slate-200 hover:text-white transition-colors"
+                        >
+                            <GithubIcon className="w-5 h-5" />
+                        </a>
+                        <a
+                            href="https://www.linkedin.com/in/oleksandr-oleksandrov-b68838131/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="LinkedIn"
+                            title="LinkedIn"
+                            className="text-slate-200 hover:text-white transition-colors"
+                        >
+                            <LinkedinIcon className="w-5 h-5" />
+                        </a>
+                    </div>
+                </div>
             </div>
 
             {/* Messages */}
@@ -118,9 +143,9 @@ export default function Twin() {
                 {messages.length === 0 && (
                     <div className="text-center text-gray-500 mt-8">
                         {hasAvatar ? (
-                            <img 
-                                src="/avatar_light.png" 
-                                alt="Digital Twin Avatar" 
+                            <img
+                                src="/avatar_light.png"
+                                alt="Digital Twin Avatar"
                                 className="w-20 h-20 rounded-full mx-auto mb-3 border-2 border-gray-300"
                             />
                         ) : (
@@ -134,16 +159,15 @@ export default function Twin() {
                 {messages.map((message) => (
                     <div
                         key={message.id}
-                        className={`flex gap-3 ${
-                            message.role === 'user' ? 'justify-end' : 'justify-start'
-                        }`}
+                        className={`flex gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'
+                            }`}
                     >
                         {message.role === 'assistant' && (
                             <div className="flex-shrink-0">
                                 {hasAvatar ? (
-                                    <img 
-                                        src="/avatar_light.png" 
-                                        alt="Digital Twin Avatar" 
+                                    <img
+                                        src="/avatar_light.png"
+                                        alt="Digital Twin Avatar"
                                         className="w-8 h-8 rounded-full border border-slate-300"
                                     />
                                 ) : (
@@ -155,17 +179,15 @@ export default function Twin() {
                         )}
 
                         <div
-                            className={`max-w-[70%] rounded-lg p-3 ${
-                                message.role === 'user'
+                            className={`max-w-[70%] rounded-lg p-3 ${message.role === 'user'
                                     ? 'bg-slate-700 text-white'
                                     : 'bg-white border border-gray-200 text-gray-800'
-                            }`}
+                                }`}
                         >
                             <p className="whitespace-pre-wrap">{message.content}</p>
                             <p
-                                className={`text-xs mt-1 ${
-                                    message.role === 'user' ? 'text-slate-300' : 'text-gray-500'
-                                }`}
+                                className={`text-xs mt-1 ${message.role === 'user' ? 'text-slate-300' : 'text-gray-500'
+                                    }`}
                             >
                                 {message.timestamp.toLocaleTimeString()}
                             </p>
@@ -185,9 +207,9 @@ export default function Twin() {
                     <div className="flex gap-3 justify-start">
                         <div className="flex-shrink-0">
                             {hasAvatar ? (
-                                <img 
-                                    src="/avatar_light.png" 
-                                    alt="Digital Twin Avatar" 
+                                <img
+                                    src="/avatar_light.png"
+                                    alt="Digital Twin Avatar"
                                     className="w-8 h-8 rounded-full border border-slate-300"
                                 />
                             ) : (
