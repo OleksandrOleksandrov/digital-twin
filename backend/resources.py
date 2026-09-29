@@ -21,3 +21,14 @@ with open("./data/style.txt", "r", encoding="utf-8") as f:
 
 with open("./data/facts.json", "r", encoding="utf-8") as f:
     facts = json.load(f)
+
+# Read autobiographical PDF
+try:
+    reader = PdfReader("./data/oleksandr_autobiography.pdf")
+    autobiography = ""
+    for page in reader.pages:
+        text = page.extract_text()
+        if text:
+            autobiography += text
+except FileNotFoundError:
+    autobiography = "Autobiography not available"
